@@ -25,16 +25,11 @@ class article{
     static put(req,res) {
         console.log(req.params.id)
         console.log(req.body)
-        // Article.findOne({_id: req.params.id})
-        // .then((article, err) => {
-        //     if(err) return res.send(err)
-        //     console.log(article)
-        //     res.send(article)
-        // })
         Article.findOneAndUpdate({_id: req.params.id}, {
             title: req.body.title,
             content: req.body.content,
-            author: req.body.author
+            author: req.body.author,
+            photo: req.body.photo
         })
         .then((result, err) => {
             if(err) return res.send(err)
@@ -51,6 +46,15 @@ class article{
             res.send(result)
         })
         // res.send(req.body)
+    }
+
+    static detail(req,res) {
+        Article.findOne({_id: req.params.id})
+        .then((article,err) => {
+            if(err) return res.send(err)
+
+            res.send(article)
+        })
     }
 }
 
